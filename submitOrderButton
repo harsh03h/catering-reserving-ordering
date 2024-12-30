@@ -1,0 +1,53 @@
+submitOrderButton.addEventListener('click', function() {
+  const selectedItems = [];
+  let totalPrice = 0;
+
+  // Collect the selected items and calculate the total price
+  document.querySelectorAll('.food-item input:checked').forEach(item => {
+    selectedItems.push({
+      name: item.dataset.name,
+      price: parseInt(item.dataset.price)
+    });
+    totalPrice += parseInt(item.dataset.price);
+  });
+
+  // If items are selected, send the order to the backend
+  if (selectedItems.length > 0) {
+    const reservation = JSON.parse(localStorage.getItem('reservation'));
+    const order = {
+      eventName: reservation.eventName,
+      eventDate: reservation.eventDate,
+      numGuests: reservation.numGuests,
+      items: selectedItems,
+      totalPrice: totalPrice
+    };
+
+    // Send the order to the backend (API POST request)
+    fetch('/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(order)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === 'Order placed successfully') {
+        let orderSummary = '<h3>Your Order:</h3><ul>';
+        selectedItems.forEach(item => {
+          orderSummary += `<li>${item.name} - $${item.price}</li>`;
+        });
+        orderSummary += `</ul><h3>Total: $${totalPrice}</h3>`;
+        orderSummaryElement.innerHTML = orderSummary;
+
+        foodSelectionSection.style.display = 'none';
+        confirmationSection.style.display = 'block';
+      } else {
+        alert('Failed to place order. Please try again.');
+      }
+    })
+    .catch(error => console.error('Error:', error));
+  } else {
+    alert("Please select at least one item before submitting!");
+  }
+});
