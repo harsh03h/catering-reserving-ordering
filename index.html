@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catering Reservation and Ordering</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Catering Reservation and Ordering System</h1>
+  </header>
+
+  <section id="reservation">
+    <h2>Reserve Catering</h2>
+    <form id="reservation-form">
+      <label for="event-name">Event Name</label>
+      <input type="text" id="event-name" required>
+
+      <label for="event-date">Event Date</label>
+      <input type="date" id="event-date" required>
+
+      <label for="num-guests">Number of Guests</label>
+      <input type="number" id="num-guests" required>
+
+      <button type="submit">Reserve Catering</button>
+    </form>
+  </section>
+
+  <section id="order">
+    <h2>Choose Your Menu</h2>
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" id="item1" data-name="Pizza" data-price="12"> Pizza ($12)
+      </label>
+    </div>
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" id="item2" data-name="Burger" data-price="8"> Burger ($8)
+      </label>
+    </div>
+    <div class="menu-item">
+      <label>
+        <input type="checkbox" id="item3" data-name="Pasta" data-price="10"> Pasta ($10)
+      </label>
+    </div>
+
+    <button id="submit-order">Submit Order</button>
+  </section>
+
+  <section id="confirmation">
+    <h2>Order Confirmation</h2>
+    <div id="confirmation-message"></div>
+    <button id="back-to-reservation">Back to Reservation</button>
+  </section>
+
+  <footer>
+    <p>Contact us at: catering@restaurant.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
